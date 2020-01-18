@@ -1,0 +1,23 @@
+version: "3.5"
+services:
+    api:
+        build: 
+            context: ./libera-api
+        volumes:
+            - "${API_PATH}/:/app"
+        ports: 
+            - 80:8081
+    db:
+        build:
+            context: ./libera-db
+        restart: always
+        environment:
+            POSGRES_USER: postgres
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: libera
+
+networks:
+    libera-network:
+        external: true
+
+    
