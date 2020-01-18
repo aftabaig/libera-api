@@ -1,0 +1,11 @@
+{
+    "Invalid username and/or password.": {
+        "ur": "غلط ای میل اور / یا پاس ورڈ"
+    },
+    "Request not authenticated": {
+        "ur": "درخواست مستند نہیں"
+    },
+    "You already have and address near this location": {
+        "ur": "آپ پہلے ہی اس مقام کے قریب ہیں اور ایڈریس کریں گے"
+    }
+}
