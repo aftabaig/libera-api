@@ -11,7 +11,7 @@ export default {
                 return await jwt.sign({ id: response[0].installationId }, secret);
             }
             else {
-                throw new Error("App not found");
+               throw new Error("App not found");
             }
         },
         updateDevice: combineResolvers(

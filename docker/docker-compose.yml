@@ -6,7 +6,7 @@ services:
         volumes:
             - "${API_PATH}/:/app"
         ports: 
-            - 80:8081
+            - 9001:8081
     db:
         build:
             context: ./libera-db
@@ -15,6 +15,8 @@ services:
             POSGRES_USER: postgres
             POSTGRES_PASSWORD: password
             POSTGRES_DB: libera
+        ports:
+            - 5433:5432
 
 networks:
     libera-network:

@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const SequelizeI18N = require('sequelize-i18n');
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
+console.log(__dirname);
 
 let sequelize;
 if (config.use_env_variable) {

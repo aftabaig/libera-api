@@ -20,7 +20,7 @@ const linkUserToDeviceAndDanglingAddresses = async(currentDevice, user, models) 
 export default {
     Query: {
         me: combineResolvers(
-            isDeviceRegistered,
+            //isDeviceRegistered,
             async(parent, args, { models, currentDevice }) => {
                 if (!currentDevice.isLinked) { 
                     return null 
@@ -30,31 +30,31 @@ export default {
         )
     },
     Mutation: {
-        registerMobile: combineResolvers(
-            isDeviceRegistered,
-            async(parent, { mobile }, { models, currentDevice }) => {
-                let completeMobileNumber = mobile.countryCode + mobile.number
-                var user = await models.User.findOne({ where: { mobile: completeMobileNumber }});
-                var response;
-                if (user) {
-                    if (user.password == null) {
-                        const randomNumber = rn({ min: 100000, max: 999999, integer: true });
-                        await currentDevice.update({ userId: user.id, isLinked: false, mobileCode: randomNumber });
-                    }
-                    else {
-                        await currentDevice.update({ userId: user.id, isLinked: false });
-                    }
-                    response = { isRegistered: user.password != null }
-                }
-                else {
-                    user = await models.User.create({ mobile: completeMobileNumber });
-                    const randomNumber = rn({ min: 100000, max: 999999, integer: true });
-                    await currentDevice.update({ userId: user.id, isLinked: false, mobileCode: randomNumber });
-                    response = { isRegistered: false }
-                }
-                return response;
-            }
-        ),
+        // registerMobile: combineResolvers(
+        //     isDeviceRegistered,
+        //     async(parent, { mobile }, { models, currentDevice }) => {
+        //         let completeMobileNumber = mobile.countryCode + mobile.number
+        //         var user = await models.User.findOne({ where: { mobile: completeMobileNumber }});
+        //         var response;
+        //         if (user) {
+        //             if (user.password == null) {
+        //                 const randomNumber = rn({ min: 100000, max: 999999, integer: true });
+        //                 await currentDevice.update({ userId: user.id, isLinked: false, mobileCode: randomNumber });
+        //             }
+        //             else {
+        //                 await currentDevice.update({ userId: user.id, isLinked: false });
+        //             }
+        //             response = { isRegistered: user.password != null }
+        //         }
+        //         else {
+        //             user = await models.User.create({ mobile: completeMobileNumber });
+        //             const randomNumber = rn({ min: 100000, max: 999999, integer: true });
+        //             await currentDevice.update({ userId: user.id, isLinked: false, mobileCode: randomNumber });
+        //             response = { isRegistered: false }
+        //         }
+        //         return response;
+        //     }
+        // ),
         verifyCode: combineResolvers(
             isDeviceRegistered,
             deviceMustNotBeLinked,

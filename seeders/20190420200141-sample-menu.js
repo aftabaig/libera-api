@@ -21,8 +21,7 @@ module.exports = {
                     brandId: brand.id, 
                     name: 'McDonald\'s Johar Town', 
                     address: 'Al-Hussain Rd, J2 Block Phase 2 Johar Town, Lahore, Punjab', 
-                    latitude: 31.4669616, 
-                    longitude: 74.2518574,
+                    location: Sequelize.fn('ST_GeomFromText', 'POINT(31.4669616 74.2518574)'),
                     createdAt: new Date(),
                     updatedAt: new Date()
                 }
@@ -31,7 +30,7 @@ module.exports = {
         await queryInterface.bulkInsert(
             'Menus',
             [
-                { version: 1, brandId: brand.id, outletId: null, createdAt: new Date(), updatedAt: new Date() }
+                { brandId: brand.id, outletId: null, createdAt: new Date(), updatedAt: new Date() }
             ]
         )
         const menu = await models.Menu.findOne({
@@ -40,7 +39,7 @@ module.exports = {
             }
         })
         await queryInterface.bulkInsert(
-            'Categories',
+            'MenuCategories',
             [
                 { menuId: menu.id, name: 'McDonald\'s Week Deals', createdAt: new Date(), updatedAt: new Date() },
                 { menuId: menu.id, name: 'Exclusive Discounted Deals', createdAt: new Date(), updatedAt: new Date() },
@@ -64,6 +63,15 @@ module.exports = {
                 key: 'mc-donalds'
             }
         });
+        const menu = await models.Menu.findOne({
+            where: {
+                id: brand.id
+            }
+        });
+        await queryInterface.bulkDelete(
+            'MenuCategories',
+            { menuId: menu.id }
+        )
         await queryInterface.bulkDelete(
             'Menus',
             { brandId: brand.id }
