@@ -15,7 +15,7 @@
     "bcrypt": "",
     "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "fcm-node": "^1.4.1",
     "graphql": "^14.2.1",
     "graphql-resolvers": "^0.3.2",
